@@ -1,0 +1,2 @@
+recursive-include tracardi_regex_match/model *
+recursive-include tracardi_regex_match/service *
