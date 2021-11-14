@@ -23,12 +23,10 @@ value={'group A': 'PINEAPPLE', 'group B': '20'}
 * groups_name: None,- Enter the names of the output groups
 
 ## Examples of errors
-- The number of groups in regex must be the same as in groups_name
-* This means that the number of groups given in the formula is not equal to the number of named groups
+- The number of groups in regex must be the same as in groups_name. - This means that the number of groups given in the formula is not equal to the number of named groups
 
 
-- regex couldn't find anything matching the pattern from supplied string.
-* This means that the pattern you specified is incorrect, because the plugin cannot find any text
+- regex couldn't find anything matching the pattern from supplied string. - This means that the pattern you specified is incorrect, because the plugin cannot find any text
 
 # Input payload
 
