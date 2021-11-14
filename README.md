@@ -9,7 +9,7 @@ This node requires configuration.
 ## Example of configuration
 
 ```json
-    {"pattern": r"(\b[A-Z]+\b).+(\b\d+)",
+    {"pattern": "(\b[A-Z]+\b).+(\b\d+)",
     "text":  "The price of PINEAPPLE ice cream is 20",
     "groups_name": ["group A", "group B"]}
 ```
