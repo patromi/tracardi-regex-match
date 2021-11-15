@@ -1,4 +1,4 @@
-# E-mail via SMTP
+# tracardi Regex Match
 
 The purpose of this plugin is to display particular groups of regexes that we specify in a pattern.
 
