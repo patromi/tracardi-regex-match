@@ -10,7 +10,7 @@ from tracardi_regex_match.plugin import SearchAction
 init = {
     "pattern": r"(\b[A-Z]+\b).+(\b\d+)",
     "text":  "The price of PINEAPPLE ice cream is 20",
-    "groups_name": ["group A", "group B"]}
+    "groups": ["group A", "group B"]}
 payload = {}
 profile = Profile(id="profile-id")
 event = Event(id="event-id",

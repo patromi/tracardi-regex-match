@@ -12,25 +12,26 @@ def search(pattern, text):
     return result.groups()
 
 
-class SearchAction(ActionRunner):
+def validate(config: dict):
+    return Configuration(**config)
+
+
+class RegexMatchAction(ActionRunner):
 
     def __init__(self, **kwargs):
-        self.config = Configuration(**kwargs)
+        self.config = validate(kwargs)
 
     async def run(self, payload):
         dot = self._get_dot_accessor(payload)
         text = dot[self.config.text]
         result = search(self.config.pattern, text)
-        if result is not None:
-            if len(result) == len(self.config.groups_name):
-                dictionary = {}
-                for i,d in zip(result,self.config.groups_name):
-                    dictionary[d] = i
-            else:
-                raise ValueError("The number of groups in regex must be the same as in groups_name")
-        else:
-            raise ValueError("regex couldn't find anything matching the pattern from supplied string.")
 
+        dictionary = {}
+        if result is not None:
+            for i, match in enumerate(result):
+                dictionary[f"{self.config.group_prefix}-{i}"] = match
+        else:
+            self.console.warn("Regex couldn't find anything matching the pattern from supplied string.")
         return Result(port="payload", value=dictionary)
 
 
@@ -39,23 +40,26 @@ def register() -> Plugin:
         start=False,
         spec=Spec(
             module='tracardi_regex_match.plugin',
-            className='MachAction',
+            className='RegexMatchAction',
             inputs=["payload"],
             outputs=['payload'],
-            version='0.1',
+            version='0.6.0',
             license="MIT",
             author="Patryk Migaj",
-            init={"pattern": "<pattern>",
-                  "text": "<text or path to text>",
-                  "groups": ["group A", "group B"]}
+            manual="regex/regex_match",
+            init={
+                "pattern": "<pattern>",
+                "text": "<text or path to text>",
+                "group_prefix": "Group"
+            }
         ),
         metadata=MetaData(
-            name='tracardi-regex-match',
-            desc='The purpose of this plugin is use regex.match to return matched data.',
+            name='Regex match',
+            desc='This plugin use regex matching and returns matched data.',
             type='flowNode',
             width=200,
             height=100,
-            icon='icon',
-            group=["General"]
+            icon='regex',
+            group=["Regex"]
         )
     )
